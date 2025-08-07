@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mehfilApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='galleryCSS.css') }}">
+    <!-- Include AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body ng-controller="GalleryController">
+    <!-- AngularJS Script -->
+    <script>
+        angular.module('mehfilApp', []).controller('GalleryController', function($scope) {
+            $scope.galleryItems = [
+                {
+                    src: "https://media.istockphoto.com/id/590034882/photo/restaurant-table-with-food.jpg?s=612x612&w=0&k=20&c=ZgVIAKS1s10FiQBLvmmgHXSwoLvMHWa7K4Tla8JZcmI=",
+                    caption: "Finest dine-ins at our wonderful marquee in Islamabad"
+                },
+                {
+                    src: "https://images.unsplash.com/photo-1665607438186-7755c7f4dd30?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXZlbnQlMjB2ZW51ZXxlbnwwfHwwfHx8MA%3D%3D",
+                    caption: "Our beautiful outdoor setting in Lahore"
+                },
+                {
+                    src: "https://thumbs.dreamstime.com/b/wedding-decor-banquet-wedding-decor-banquet-wedding-restaurant-decorated-flowers-luxury-wedding-table-155818692.jpg",
+                    caption: "Exquisite floral setting in Saffron Marquee, Islamabad"
+                },
+                {
+                    src: "https://thumbs.dreamstime.com/b/wedding-chairs-26669068.jpg",
+                    caption: "Wooden and white floral outdoor marquee setting in Karachi"
+                },
+                {
+                    src: "https://media.istockphoto.com/id/1207059415/photo/table-setting-at-a-luxury-wedding-and-beautiful-flowers-on-the-table.jpg?s=612x612&w=0&k=20&c=1UUaSAbEBE-4m_fcxsIodieMdiM245ZPVoa-uRflvsw=",
+                    caption: "A brilliant daytime setting in Margalla Hills, Islamabad"
+                },
+                {
+                    src: "https://us.123rf.com/450wm/pichukovaekaterina/pichukovaekaterina1906/pichukovaekaterina190600008/124982506-d%C3%A9coration-de-mariage-%C3%A9cologique-table-en-bois-jeunes-mari%C3%A9s-pour-une-f%C3%AAte.jpg?ver=6",
+                    caption: "A lavish wooden outdoor setting in Lahore"
+                }
+            ];
+        });
+        
+    </script>
+
+    <div class="container-fluid bg-dark text-white">
+        <!-- Navbar -->
+        <div class="d-flex justify-content-between align-items-center py-3">
+            <h1 class="display-4">Mehfil</h1>
+            <div>
+                <a href="{{ url_for('home') }}" class="btn btn-light">Home</a>
+                <a href="{{ url_for('services') }}" class="btn btn-light">Services</a>
+                <a href="{{ url_for('menu') }}" class="btn btn-light">Menu</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-light">Contact Us</a>
+                <a href="{{ url_for('booking_page') }}" class="btn btn-light">Bookings</a>
+            </div>
+        </div>
+        <!-- Subtitle -->
+        <p class="text-center mb-4">Take a look at our gallery here!</p>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 mb-4" ng-repeat="item in galleryItems">
+                <div class="card">
+                    <img class="card-img-top" ng-src="{% raw %}{{item.src}}{% endraw %}" alt="Event">
+                    <div class="card-body bg-dark text-white">
+                        <p class="card-text text-center">{% raw %}{{item.caption}}{% endraw %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

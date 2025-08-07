@@ -1,0 +1,1 @@
+SELECT * FROM mehfil_booking.bookings;

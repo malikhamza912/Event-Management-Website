@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll to Top Button</title>
+    <style>
+        /* Style for the upward arrow button */
+        .upward-arrow {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: grey;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            z-index: 1000;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect for the button */
+        .upward-arrow:hover {
+            background-color: white;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 2000px; padding: 10px;">
+        <h1>Scroll Down to See the Button</h1>
+        <p>Scroll to the bottom and click the upward arrow button to scroll back to the top.</p>
+    </div>
+
+    <!-- Scroll to top button -->
+    <div class="upward-arrow" id="scrollToTopBtn">
+        &#9650;
+    </div>
+
+    <script>
+        // Function to smoothly scroll to the top
+        document.getElementById('scrollToTopBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

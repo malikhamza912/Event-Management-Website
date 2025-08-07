@@ -1,0 +1,118 @@
+<html lang="en" ng-app="mehfilApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Event</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bookingCSS.css') }}">
+    <!-- Include AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="BookingController">
+    <!-- AngularJS Script -->
+    <script>        
+        angular.module('mehfilApp', []).controller('BookingController', function ($scope) {
+            $scope.marquees = [];
+            $scope.generateMarquees = function (city) {
+                const marqueeList = {
+                    Islamabad: ["The Royal Venue, Islamabad", "Heaven's Event Hall, Islamabad", "Serenity Marquee, Islamabad"],
+                    Lahore: ["Pearl Marquee, Lahore", "Elegance Banquet, Lahore", "Grand Festivity Hall, Lahore"],
+                    Karachi: ["Ocean's Bliss Marquee, Karachi", "The Starry Hall, Karachi", "Elite Celebration Hall, Karachi"]
+                };
+                $scope.marquees = marqueeList[city] || [];
+            };
+        });
+    </script>
+
+    <div class="container-fluid bg-dark text-white">
+        <!-- Navbar -->
+        <div class="d-flex justify-content-between align-items-center py-3">
+            <h1 class="display-4">&nbsp;Mehfil</h1>
+            <div>
+                <a href="{{ url_for('home') }}" class="btn btn-light mx-1">Home</a>
+                <a href="{{ url_for('gallery') }}" class="btn btn-light mx-1">Gallery</a>
+                <a href="{{ url_for('services') }}" class="btn btn-light mx-1">Services</a>
+                <a href="{{ url_for('menu') }}" class="btn btn-light mx-1">Menu</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-light mx-1">Contact Us</a>
+            </div>
+        </div>
+        <!-- Subtitle -->
+        <p class="subtitle text-center mb-4">Book your own event now!</p>
+    </div>
+
+    <!-- Booking Event Form -->
+    <div class="message-form w-50 p-4">
+        <h3 class="text-center">Book Your Event!</h3>
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" name="address" placeholder="Your Address" required>
+            </div>
+            <div class="form-group">
+                <label>City</label><br>
+                <input type="radio" name="city" value="Islamabad" required> Islamabad<br>
+                <input type="radio" name="city" value="Lahore"> Lahore<br>
+                <input type="radio" name="city" value="Karachi"> Karachi
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="form-control" name="date" required>
+            </div>
+            <div class="form-group">
+                <label>Time Slot</label>
+                <select class="form-control" name="time_slot" required>
+                    <option>12PM - 3PM</option>
+                    <option>4PM - 7PM</option>
+                    <option>8PM - 11PM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Payment</label><br>
+                <input type="radio" name="payment" value="Debit/Credit Card" required> Debit/Credit Card<br>
+                <input type="radio" name="payment" value="EasyPaisa"> EasyPaisa<br>
+                <input type="radio" name="payment" value="JazzCash"> JazzCash<br>
+                <input type="radio" name="payment" value="Other Wallets"> Other Wallets
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        </form>
+    </div>
+        <script>
+            // Handle form submission
+            document.getElementById('bookingForm').onsubmit = async function (e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+        
+                try {
+                    const response = await fetch('/submit_booking', {
+                        method: 'POST',
+                        body: formData
+                    });
+        
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(result.success);
+                        e.target.reset();
+                    } else {
+                        alert(result.error);
+                    }
+                } catch (error) {
+                    alert('An error occurred: ' + error.message);
+                }
+            };
+        </script>        
+</body>
+</html>
